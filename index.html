@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinic On - Modern Hospital Management & Healthcare Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="container topbar-content">
+      <div class="topbar-info">
+        <span><i class="fa-solid fa-phone"></i> Emergency 24/7: +1 (800) 555-0199</span>
+        <span><i class="fa-solid fa-clock"></i> Mon - Sun: 24 Hours Open</span>
+        <span><i class="fa-solid fa-location-dot"></i> 742 Evergreen Healthcare Ave, Metro City</span>
+      </div>
+      <div class="topbar-links">
+        <a href="doctor-login.html" style="color: var(--gray-400);"><i class="fa-solid fa-user-doctor"></i> Staff / Doctor Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="logo-text">Clinic<span>On</span></div>
+      </a>
+
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="appointment.html" class="nav-link">Book Appointment</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="patient-login.html" class="btn btn-light btn-sm"><i class="fa-solid fa-user"></i> Patient Sign In</a>
+        <a href="appointment.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-calendar-check"></i> Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-subtitle"><i class="fa-solid fa-shield-heart"></i> Accredited Healthcare Facility</span>
+          <h1 class="hero-title">Medical Services That You Can <span>Trust 100%</span></h1>
+          <p class="hero-text">
+            Hospitals are here to serve our community's deepest needs. Get an expert medical opinion from world-renowned specialists with seamless appointment scheduling and round-the-clock emergency support.
+          </p>
+          <div class="hero-actions">
+            <a href="appointment.html" class="btn btn-accent btn-lg"><i class="fa-solid fa-calendar-plus"></i> Book An Appointment</a>
+            <a href="services.html" class="btn btn-light btn-lg"><i class="fa-solid fa-stethoscope"></i> View Our Services</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h3><i class="fa-solid fa-calendar-check" style="color: var(--accent);"></i> Book Consultation</h3>
+          <p>Schedule your medical consultation with our certified attending specialists.</p>
+          <form id="quickBookingForm">
+            <div class="form-group">
+              <label class="form-label">Medical Department</label>
+              <select id="quickDept" class="form-select" required>
+                <option value="">-- Choose Department --</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Pediatrics & NICU">Pediatrics & NICU</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Dental & Oral Care">Dental & Oral Care</option>
+                <option value="General Medicine">General Medicine</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patient Legal Name</label>
+              <input type="text" id="quickName" class="form-control" placeholder="e.g. Eleanor Vance" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contact Phone Number</label>
+              <input type="tel" id="quickPhone" class="form-control" placeholder="+1 (555) 000-0000" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-arrow-right"></i> Choose Specialist & Time Slot</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Key Statistics Strip -->
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Specialist Doctors</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">Patients Treated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Emergency & NICU Care</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">99.4%</div>
+          <div class="stat-label">Patient Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medical Departments Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Clinical Departments</span>
+        <h2 class="section-title">Specialized Medical Wings</h2>
+        <p class="section-subtitle">State-of-the-art diagnostic facilities and internationally trained medical experts ready to assist you.</p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-truck-medical"></i></div>
+          <h3 class="service-title">Emergency Room (24/7)</h3>
+          <p class="service-desc">Emergency departments stand ready to deal with life-threatening situations, trauma, and immediate surgical support.</p>
+          <a href="appointment.html?dept=General Medicine" class="btn btn-outline btn-sm">Consult Doctor <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-baby"></i></div>
+          <h3 class="service-title">Baby Nursery & NICU</h3>
+          <p class="service-desc">When babies are born early or require intensive clinical monitoring, our NICU provides round-the-clock newborn care.</p>
+          <a href="appointment.html?dept=Pediatrics & NICU" class="btn btn-outline btn-sm">Consult Doctor <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-flask-vial"></i></div>
+          <h3 class="service-title">Clinical Laboratory</h3>
+          <p class="service-desc">Fully automated diagnostic testing pertaining to pathology, hematology, biochemistry, and disease prevention.</p>
+          <a href="appointment.html?dept=General Medicine" class="btn btn-outline btn-sm">Consult Doctor <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+          <h3 class="service-title">Cardiology Care</h3>
+          <p class="service-desc">Comprehensive heart evaluations, ECG, stress testing, cardiac catheterization, and preventative cardiology.</p>
+          <a href="appointment.html?dept=Cardiology" class="btn btn-outline btn-sm">Consult Doctor <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="service-title">Neurology Center</h3>
+          <p class="service-desc">Specialized treatment for migraines, stroke recovery, neuropathy, seizure disorders, and spine care.</p>
+          <a href="appointment.html?dept=Neurology" class="btn btn-outline btn-sm">Consult Doctor <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-tooth"></i></div>
+          <h3 class="service-title">Dental Clinic</h3>
+          <p class="service-desc">Routine checkups, cosmetic dentistry, orthodontics, oral surgery, and preventative dental hygiene for all ages.</p>
+          <a href="appointment.html?dept=Dental & Oral Care" class="btn btn-outline btn-sm">Consult Doctor <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Specialists -->
+  <section class="section" style="background: var(--gray-100);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Medical Staff</span>
+        <h2 class="section-title">Verified Attending Specialists</h2>
+        <p class="section-subtitle">Dedicated professionals committed to providing transparent, compassionate, and precise healthcare.</p>
+      </div>
+
+      <div class="cards-grid" id="featuredDoctorsList">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Care Banner -->
+  <section class="section">
+    <div class="container">
+      <div style="background: linear-gradient(135deg, #015e6b, #028090); color: white; padding: 3.5rem; border-radius: var(--radius-lg); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center;">
+        <div>
+          <span style="background: rgba(255,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 700; text-transform: uppercase;">Digital Health Records</span>
+          <h2 style="font-size: 2.2rem; margin: 1rem 0; line-height: 1.3;">A Modern Healthcare Portal Dedicated to Patient Comfort</h2>
+          <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">
+            No more waiting in long clinic queues. Schedule your consultation online, view attending doctor approval in real time, and access your doctor's clinical prescriptions directly from your secure patient portal.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="patient-signup.html" class="btn btn-accent"><i class="fa-solid fa-user-plus"></i> Create Patient Account</a>
+            <a href="patient-login.html" class="btn btn-light"><i class="fa-solid fa-right-to-bracket"></i> Patient Sign In</a>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <div style="display: inline-block; background: rgba(255,255,255,0.1); padding: 2.5rem; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.2);">
+            <i class="fa-solid fa-notes-medical" style="font-size: 4rem; color: #5cf1de; margin-bottom: 1rem;"></i>
+            <h4 style="font-size: 1.3rem;">Digital Prescriptions</h4>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.85); margin-top: 0.5rem;">Access doctor checkup remarks directly inside your secure patient dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+            <div class="logo-text">Clinic<span>On</span></div>
+          </a>
+          <p class="footer-desc">
+            Clinic On is a complete Hospital & Health Management facility dedicated to modern patient care, rapid digital appointment booking, and specialized medical consultation.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Hospital</a></li>
+            <li><a href="services.html">Clinical Services</a></li>
+            <li><a href="appointment.html">Book Appointment</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Portals</h4>
+          <ul class="footer-links">
+            <li><a href="patient-login.html">Patient Login</a></li>
+            <li><a href="patient-signup.html">Patient Sign Up</a></li>
+            <li><a href="doctor-login.html">Staff Intranet</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Emergency Contact</h4>
+          <ul class="footer-contact">
+            <li><i class="fa-solid fa-phone"></i> <span>Emergency: +1 (800) 555-0199</span></li>
+            <li><i class="fa-solid fa-envelope"></i> <span>support@clinicon-hospital.com</span></li>
+            <li><i class="fa-solid fa-location-dot"></i> <span>742 Evergreen Healthcare Ave, Metro City</span></li>
+            <li><i class="fa-solid fa-clock"></i> <span>24 Hours / 7 Days Active</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Clinic On - Hospital Management System. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById("quickBookingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const dept = encodeURIComponent(document.getElementById("quickDept").value);
+      const name = encodeURIComponent(document.getElementById("quickName").value);
+      const phone = encodeURIComponent(document.getElementById("quickPhone").value);
+
+      const session = window.app.getCurrentSession();
+      if (session && session.role === "patient") {
+        window.location.href = `appointment.html?dept=${dept}`;
+      } else {
+        // Direct to signup/login first, pre-filling name and phone!
+        const redirectParam = encodeURIComponent(`appointment.html?dept=${dept}`);
+        window.location.href = `patient-signup.html?redirect=${redirectParam}&name=${name}&phone=${phone}`;
+      }
+    });
+
+    const container = document.getElementById("featuredDoctorsList");
+    if (container && window.app) {
+      container.innerHTML = window.app.data.doctors.map(d => `
+        <div class="doctor-card">
+          <div class="doctor-avatar-wrap" style="background-image: url('${d.photo}'); background-size: cover; background-position: center;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);"></div>
+            <span class="doctor-badge"><i class="fa-solid fa-stethoscope"></i> ${d.category}</span>
+          </div>
+          <div class="doctor-info">
+            <h3 class="doctor-name">${d.name}</h3>
+            <p class="doctor-specialty">${d.qualification}</p>
+            <div class="doctor-meta">
+              <span><i class="fa-solid fa-clock-rotate-left"></i> Experience: ${d.experience}</span>
+              <span><i class="fa-solid fa-calendar-week"></i> Schedule: <strong>${d.workingDaysText}</strong></span>
+              <span><i class="fa-solid fa-clock"></i> Hours: ${d.workingHours}</span>
+              <span><i class="fa-solid fa-door-open"></i> ${d.room}</span>
+              <span><i class="fa-solid fa-wallet"></i> Consultation Fee: <strong>${d.consultFee}</strong></span>
+            </div>
+            <a href="appointment.html?doctorId=${d.id}&dept=${encodeURIComponent(d.category)}" class="btn btn-primary btn-sm btn-block">
+              <i class="fa-solid fa-calendar-check"></i> Book Consultation
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

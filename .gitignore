@@ -1,0 +1,19 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and Editor Configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary Logs & Cache
+*.log
+*.tmp
+.cache/
+
+# Local Environment Overrides
+config.local.php
+.env

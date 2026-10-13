@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book An Appointment - Clinic On Healthcare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="container topbar-content">
+      <div class="topbar-info">
+        <span><i class="fa-solid fa-phone"></i> Emergency 24/7: +1 (800) 555-0199</span>
+        <span><i class="fa-solid fa-clock"></i> Mon - Sun: 24 Hours Open</span>
+      </div>
+      <div class="topbar-links">
+        <a href="doctor-login.html" style="color: var(--gray-400);"><i class="fa-solid fa-user-doctor"></i> Staff / Doctor Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="logo-text">Clinic<span>On</span></div>
+      </a>
+
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="appointment.html" class="nav-link active">Book Appointment</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="patient-login.html" class="btn btn-light btn-sm"><i class="fa-solid fa-user"></i> Patient Sign In</a>
+        <a href="appointment.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-calendar-check"></i> Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <header style="background: linear-gradient(135deg, #01434c 0%, #028090 100%); color: white; padding: 2.75rem 0; text-align: center;">
+    <div class="container">
+      <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff; margin-bottom: 0.5rem;">Verified Clinical Staff</span>
+      <h1 style="font-size: 2.3rem; font-weight: 800;">Schedule A Specialist Consultation</h1>
+      <p style="color: rgba(255,255,255,0.85); max-width: 600px; margin: 0.5rem auto 0 auto;">Select your medical specialty, pick your attending physician, and reserve your slot.</p>
+    </div>
+  </header>
+
+  <!-- Main Booking Area -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Guest Login Required Prompt (Shown only if not logged in) -->
+      <div id="authRequiredBox" style="display: none; max-width: 600px; margin: 0 auto; text-align: center; background: var(--white); padding: 3.5rem 2rem; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); box-shadow: var(--shadow-md);">
+        <div style="width: 72px; height: 72px; background: var(--primary-light); color: var(--primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem auto;">
+          <i class="fa-solid fa-user-lock"></i>
+        </div>
+        <h2 style="font-size: 1.6rem; color: var(--dark); font-weight: 800; margin-bottom: 0.5rem;">Patient Sign In Required</h2>
+        <p style="color: var(--gray-600); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+          To ensure accurate medical records and allow you to view doctor prescriptions and appointment status, please sign in or register your patient account first.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a id="btnGoLogin" href="patient-login.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In To Book</a>
+          <a id="btnGoSignup" href="patient-signup.html" class="btn btn-outline btn-lg"><i class="fa-solid fa-user-plus"></i> Create New Account</a>
+        </div>
+      </div>
+
+      <!-- Authenticated Booking Container (Shown when logged in) -->
+      <div id="bookingContainer" style="display: none;">
+        <div style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 2.5rem; align-items: start;">
+          
+          <!-- Booking Form (Original Compact Form-Row Layout Restored) -->
+          <div class="form-card" style="max-width: 100%;">
+            
+            <!-- Patient Account Verification Banner -->
+            <div style="background: #e0f2fe; border: 1px solid #bae6fd; border-radius: var(--radius-sm); padding: 0.9rem 1.1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+              <div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #0369a1;">Booking Consultation For</span>
+                <div style="font-weight: 700; color: var(--dark); font-size: 1rem;">
+                  <i class="fa-solid fa-user-check" style="color: var(--primary);"></i> <span id="authPatientName"></span>
+                </div>
+                <small style="color: var(--gray-600);"><span id="authPatientEmail"></span> • <span id="authPatientPhone"></span></small>
+              </div>
+              <a href="patient-dashboard.html" class="btn btn-light btn-sm" style="font-size: 0.8rem;"><i class="fa-solid fa-chart-line"></i> My Dashboard</a>
+            </div>
+
+            <form id="appointmentForm">
+              <!-- Department & Doctor Selection -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Medical Department *</label>
+                  <select id="deptSelect" class="form-select" required>
+                    <option value="">-- Select Department --</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Pediatrics & NICU">Pediatrics & NICU</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Dental & Oral Care">Dental & Oral Care</option>
+                    <option value="General Medicine">General Medicine</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Choose Attending Physician *</label>
+                  <select id="doctorSelect" class="form-select" required>
+                    <option value="">-- Select Doctor --</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Compact Preferred Date & Time Slot Side-by-Side Row -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Preferred Date *</label>
+                  <input type="date" id="aptDate" class="form-control" required>
+                  <div id="dateNotice" style="font-size: 0.82rem; margin-top: 0.4rem; font-weight: 600;"></div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Available Time Slot *</label>
+                  <select id="aptTime" class="form-select" required>
+                    <option value="">-- Choose Time Slot --</option>
+                    <option value="09:00 AM">09:00 AM - 09:30 AM</option>
+                    <option value="10:00 AM">10:00 AM - 10:30 AM</option>
+                    <option value="11:15 AM">11:15 AM - 11:45 AM</option>
+                    <option value="02:00 PM">02:00 PM - 02:30 PM</option>
+                    <option value="03:30 PM">03:30 PM - 04:00 PM</option>
+                    <option value="05:00 PM">05:00 PM - 05:30 PM</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Symptoms / Reason for Consultation</label>
+                <textarea id="patientSymptoms" class="form-control" rows="3" placeholder="Describe symptoms or reasons for this consultation (e.g. routine wellness check, migraine, fever)..."></textarea>
+              </div>
+
+              <button type="submit" id="submitBookingBtn" class="btn btn-accent btn-lg btn-block">
+                <i class="fa-solid fa-check-circle"></i> Confirm Consultation Request
+              </button>
+            </form>
+          </div>
+
+          <!-- Doctor Details Card (Dynamic preview matching Services page) -->
+          <div>
+            <div id="doctorPreviewCard" class="form-card" style="max-width: 100%; text-align: center; display: none;">
+              <img id="previewDocImg" src="" alt="Doctor" style="width: 110px; height: 110px; border-radius: var(--radius-full); object-fit: cover; margin: 0 auto 1rem auto; border: 4px solid var(--primary-light);">
+              <h3 id="previewDocName" style="font-size: 1.3rem; color: var(--dark); margin-bottom: 0.2rem;"></h3>
+              <p id="previewDocSpec" style="color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;"></p>
+              
+              <div style="text-align: left; background: var(--gray-100); padding: 1.1rem; border-radius: var(--radius-sm); font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.55rem;">
+                <div><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> <span id="previewDocQual"></span></div>
+                <div><i class="fa-solid fa-calendar-week" style="color: var(--primary);"></i> <strong>Working Days:</strong> <span id="previewDocDays" style="color: var(--primary-dark); font-weight: 700;"></span></div>
+                <div><i class="fa-solid fa-clock" style="color: var(--primary);"></i> <strong>Hours:</strong> <span id="previewDocHours" style="color: var(--primary-dark); font-weight: 700;"></span></div>
+                <div style="color: var(--danger); font-size: 0.82rem;"><i class="fa-solid fa-ban"></i> <strong>Day Off:</strong> <span id="previewDocOff" style="font-weight: 700;"></span></div>
+                <div><i class="fa-solid fa-door-open" style="color: var(--primary);"></i> <span id="previewDocRoom"></span></div>
+                <div><i class="fa-solid fa-wallet" style="color: var(--primary);"></i> Consultation Fee: <strong id="previewDocFee" style="color: var(--primary-dark);"></strong></div>
+              </div>
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.5rem;">
+              <h4 style="color: #166534; font-size: 1.05rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-shield-heart"></i> Seamless Health Records</h4>
+              <p style="font-size: 0.88rem; color: #14532d; line-height: 1.5;">
+                Once confirmed, this consultation will appear in your <strong>Patient Dashboard</strong>, where you can monitor attending physician approval and view digital prescriptions.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+            <div class="logo-text">Clinic<span>On</span></div>
+          </a>
+          <p class="footer-desc">
+            Clinic On is a complete Hospital & Health Management facility dedicated to modern patient care, rapid digital appointment booking, and specialized medical consultation.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Hospital</a></li>
+            <li><a href="services.html">Clinical Services</a></li>
+            <li><a href="appointment.html">Book Appointment</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Portals</h4>
+          <ul class="footer-links">
+            <li><a href="patient-login.html">Patient Login</a></li>
+            <li><a href="patient-signup.html">Patient Sign Up</a></li>
+            <li><a href="doctor-login.html">Staff Intranet</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Emergency Contact</h4>
+          <ul class="footer-contact">
+            <li><i class="fa-solid fa-phone"></i> <span>Emergency: +1 (800) 555-0199</span></li>
+            <li><i class="fa-solid fa-envelope"></i> <span>support@clinicon-hospital.com</span></li>
+            <li><i class="fa-solid fa-location-dot"></i> <span>742 Evergreen Healthcare Ave, Metro City</span></li>
+            <li><i class="fa-solid fa-clock"></i> <span>24 Hours / 7 Days Active</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Clinic On - Hospital Management System. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    const session = window.app.getCurrentSession();
+    const authBox = document.getElementById("authRequiredBox");
+    const bookingBox = document.getElementById("bookingContainer");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlDept = urlParams.get("dept") || "";
+    const urlDoctorId = urlParams.get("doctorId") || "";
+
+    if (!session || session.role !== "patient") {
+      authBox.style.display = "block";
+      bookingBox.style.display = "none";
+      
+      const destQuery = encodeURIComponent(`appointment.html?dept=${urlDept}&doctorId=${urlDoctorId}`);
+      document.getElementById("btnGoLogin").href = `patient-login.html?redirect=${destQuery}`;
+      document.getElementById("btnGoSignup").href = `patient-signup.html?redirect=${destQuery}`;
+    } else {
+      authBox.style.display = "none";
+      bookingBox.style.display = "block";
+
+      const patient = session.user;
+      document.getElementById("authPatientName").textContent = patient.name;
+      document.getElementById("authPatientEmail").textContent = patient.email;
+      document.getElementById("authPatientPhone").textContent = patient.phone;
+
+      const deptSelect = document.getElementById("deptSelect");
+      const doctorSelect = document.getElementById("doctorSelect");
+      const docPreview = document.getElementById("doctorPreviewCard");
+      const dateInput = document.getElementById("aptDate");
+      const dateNotice = document.getElementById("dateNotice");
+      const submitBtn = document.getElementById("submitBookingBtn");
+
+      const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+      // Minimum date is today
+      const today = new Date().toISOString().split("T")[0];
+      dateInput.min = today;
+
+      let isDateValid = false;
+
+      function updateDoctorList(selectedDept, targetDoctorId = null) {
+        doctorSelect.innerHTML = `<option value="">-- Select Doctor --</option>`;
+        const docs = window.app.data.doctors.filter(d => !selectedDept || d.category === selectedDept);
+        
+        docs.forEach(doc => {
+          const opt = document.createElement("option");
+          opt.value = doc.id;
+          opt.textContent = `${doc.name} (${doc.category} - ${doc.consultFee})`;
+          if (targetDoctorId && doc.id === targetDoctorId) {
+            opt.selected = true;
+          }
+          doctorSelect.appendChild(opt);
+        });
+
+        if (docs.length === 1 && !targetDoctorId) {
+          doctorSelect.value = docs[0].id;
+          showDoctorPreview(docs[0].id);
+        } else if (targetDoctorId) {
+          showDoctorPreview(targetDoctorId);
+        } else {
+          docPreview.style.display = "none";
+        }
+
+        validateSelectedDate();
+      }
+
+      function showDoctorPreview(docId) {
+        const doc = window.app.data.doctors.find(d => d.id === docId);
+        if (!doc) {
+          docPreview.style.display = "none";
+          return;
+        }
+        document.getElementById("previewDocImg").src = doc.photo;
+        document.getElementById("previewDocName").textContent = doc.name;
+        document.getElementById("previewDocSpec").textContent = doc.category;
+        document.getElementById("previewDocQual").textContent = doc.qualification;
+        document.getElementById("previewDocDays").textContent = doc.workingDaysText || "Mon - Sat";
+        document.getElementById("previewDocHours").textContent = doc.workingHours || "9:00 AM - 5:00 PM";
+        document.getElementById("previewDocOff").textContent = doc.offDaysText || "Sunday";
+        document.getElementById("previewDocRoom").textContent = `Location: ${doc.room}`;
+        document.getElementById("previewDocFee").textContent = doc.consultFee;
+        docPreview.style.display = "block";
+      }
+
+      // Compact Date Validation Function
+      function validateSelectedDate() {
+        const docId = doctorSelect.value;
+        const val = dateInput.value;
+        dateNotice.innerHTML = "";
+        isDateValid = false;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+
+        if (!docId || !val) return;
+
+        const doc = window.app.data.doctors.find(d => d.id === docId);
+        if (!doc || !doc.workingDays) return;
+
+        // Accurate day-of-week parsing (local year, month-1, day)
+        const parts = val.split("-");
+        const picked = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        const dayOfWeek = picked.getDay();
+        const dayName = weekdayNames[dayOfWeek];
+
+        if (!doc.workingDays.includes(dayOfWeek)) {
+          // Off day! Block it immediately!
+          isDateValid = false;
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = "0.5";
+          dateInput.value = ""; // Clear invalid date so it cannot be submitted!
+          
+          dateNotice.innerHTML = `
+            <div style="background: #fff1f2; border: 1px solid #fecdd3; border-radius: 4px; padding: 0.5rem 0.75rem; color: #b91c1c;">
+              <i class="fa-solid fa-triangle-exclamation"></i> 
+              <strong>${doc.name} is NOT available on ${dayName}s.</strong><br>
+              Working Schedule: <strong>${doc.workingDaysText}</strong> (${doc.workingHours}). Please select an available working day.
+            </div>
+          `;
+          window.app.showToast(`${doc.name} is off on ${dayName}s. Please choose an available working day.`, true);
+        } else {
+          // Valid working day!
+          isDateValid = true;
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = "1";
+          dateNotice.innerHTML = `
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; padding: 0.4rem 0.65rem; color: #166534;">
+              <i class="fa-solid fa-circle-check"></i> 
+              ${doc.name} is available on ${dayName} (${doc.workingHours}).
+            </div>
+          `;
+        }
+      }
+
+      deptSelect.addEventListener("change", () => updateDoctorList(deptSelect.value));
+      doctorSelect.addEventListener("change", () => {
+        showDoctorPreview(doctorSelect.value);
+        validateSelectedDate();
+      });
+      dateInput.addEventListener("change", validateSelectedDate);
+      dateInput.addEventListener("input", validateSelectedDate);
+
+      if (urlDept) deptSelect.value = urlDept;
+      updateDoctorList(urlDept, urlDoctorId);
+
+      // Form Submit
+      document.getElementById("appointmentForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        if (!dateInput.value) {
+          window.app.showToast("Please choose a valid working date for the selected physician.", true);
+          return;
+        }
+
+        const formData = {
+          department: deptSelect.value,
+          doctorId: doctorSelect.value,
+          date: dateInput.value,
+          time: document.getElementById("aptTime").value,
+          symptoms: document.getElementById("patientSymptoms").value
+        };
+
+        const newApt = window.app.createAppointment(formData);
+        window.location.href = `patient-dashboard.html?newApt=${newApt.id}`;
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Registration - Clinic On Hospital Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);">
+
+  <!-- Nav -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="logo-text">Clinic<span>On</span></div>
+      </a>
+      <div class="nav-actions">
+        <a href="doctor-login.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-arrow-right-to-bracket"></i> Already Registered? Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Signup Form -->
+  <section class="section" style="padding: 3rem 0;">
+    <div class="container" style="max-width: 650px;">
+      <div class="form-card" style="box-shadow: var(--shadow-lg);">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="width: 64px; height: 64px; background: var(--primary-light); color: var(--primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 1rem auto;">
+            <i class="fa-solid fa-id-card-clip"></i>
+          </div>
+          <h2 style="font-size: 1.6rem; color: var(--dark); font-weight: 800;">Physician Registration</h2>
+          <p style="color: var(--gray-600); font-size: 0.9rem;">Join the Clinic On clinical specialist team and manage patient consultations.</p>
+        </div>
+
+        <form id="docSignupForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="regDocName" class="form-control" placeholder="Dr. Alexander Wright" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Medical Specialty / Category *</label>
+              <select id="regDocCat" class="form-select" required>
+                <option value="">-- Select Specialty --</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Pediatrics & NICU">Pediatrics & NICU</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Dental & Oral Care">Dental & Oral Care</option>
+                <option value="General Medicine">General Medicine</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Official Email Address *</label>
+              <input type="email" id="regDocEmail" class="form-control" placeholder="wright@hospital.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Login Password *</label>
+              <input type="password" id="regDocPass" class="form-control" placeholder="Create strong password" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Contact Phone *</label>
+              <input type="tel" id="regDocPhone" class="form-control" placeholder="+1 (555) 000-0000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Years of Experience</label>
+              <input type="text" id="regDocExp" class="form-control" placeholder="e.g. 8 Years">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Degrees & Qualifications</label>
+              <input type="text" id="regDocQual" class="form-control" placeholder="e.g. MD, FACC - Johns Hopkins">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Consultation Fee</label>
+              <input type="text" id="regDocFee" class="form-control" placeholder="e.g. $100">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Assigned Room / Department Block</label>
+            <input type="text" id="regDocRoom" class="form-control" placeholder="e.g. Room 204, West Wing">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1rem;">
+            <i class="fa-solid fa-user-plus"></i> Complete Physician Registration
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.88rem; color: var(--gray-600);">
+          Already have an account? <a href="doctor-login.html" style="font-weight: 600; color: var(--primary);">Sign In Here</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById("docSignupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const docData = {
+        name: document.getElementById("regDocName").value,
+        category: document.getElementById("regDocCat").value,
+        email: document.getElementById("regDocEmail").value,
+        password: document.getElementById("regDocPass").value,
+        phone: document.getElementById("regDocPhone").value,
+        experience: document.getElementById("regDocExp").value || "5 Years",
+        qualification: document.getElementById("regDocQual").value || "MBBS / Specialist",
+        consultFee: document.getElementById("regDocFee").value || "$100",
+        room: document.getElementById("regDocRoom").value || "Room 101, Main Wing"
+      };
+
+      const newDoc = window.app.registerDoctor(docData);
+      window.app.setSession(newDoc, "doctor");
+      window.app.showToast("Doctor registered successfully! Redirecting...");
+      setTimeout(() => window.location.href = "doctor-dashboard.html", 600);
+    });
+  </script>
+</body>
+</html>

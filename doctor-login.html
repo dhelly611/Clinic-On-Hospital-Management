@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physician Portal Login - Clinic On Healthcare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);">
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="logo-text">Clinic<span>On</span> <small style="font-size: 0.75rem; background: var(--gray-200); color: var(--dark-light); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); margin-left: 0.3rem;">Staff Intranet</small></div>
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-light btn-sm"><i class="fa-solid fa-house"></i> Public Website</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Form Container -->
+  <section class="section" style="padding: 4rem 0;">
+    <div class="container" style="max-width: 500px;">
+      <div class="form-card" style="box-shadow: var(--shadow-lg);">
+        
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="width: 68px; height: 68px; background: var(--primary-light); color: var(--primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem auto;">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h2 style="font-size: 1.65rem; color: var(--dark); font-weight: 800;">Hospital Staff Sign In</h2>
+          <p style="color: var(--gray-600); font-size: 0.92rem; margin-top: 0.25rem;">Authorized Clinical Personnel & Attending Physicians</p>
+        </div>
+
+        <div style="background: #e0f2fe; border: 1px solid #bae6fd; border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: #0369a1; display: flex; gap: 0.75rem; align-items: flex-start;">
+          <i class="fa-solid fa-shield-halved" style="margin-top: 0.2rem; font-size: 1rem;"></i>
+          <div>Please select your physician record from the staff directory and enter your hospital password.</div>
+        </div>
+
+        <form id="docLoginForm">
+          <div class="form-group">
+            <label class="form-label">Select Attending Physician *</label>
+            <select id="docSelect" class="form-select" style="font-weight: 600;" required>
+              <option value="">-- Choose Your Name --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hospital Staff Password *</label>
+            <input type="password" id="docPassword" class="form-control" placeholder="Enter staff password" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
+            <i class="fa-solid fa-lock-open"></i> Access Physician Dashboard
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--gray-200); font-size: 0.85rem; color: var(--gray-600);">
+          Are you a patient? <a href="patient-login.html" style="font-weight: 600; color: var(--primary);">Go to Patient Portal Sign In</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Populate doctors dropdown from verified staff directory
+    const docSelect = document.getElementById("docSelect");
+    if (window.app && window.app.data.doctors) {
+      window.app.data.doctors.forEach(doc => {
+        const opt = document.createElement("option");
+        opt.value = doc.id;
+        opt.textContent = `${doc.name} — ${doc.category}`;
+        docSelect.appendChild(opt);
+      });
+    }
+
+    // Handle form submit
+    document.getElementById("docLoginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const docId = docSelect.value;
+      const pass = document.getElementById("docPassword").value;
+
+      const loggedDoctor = window.app.loginDoctorById(docId, pass);
+      if (loggedDoctor) {
+        window.app.showToast(`Welcome back, ${loggedDoctor.name}!`);
+        setTimeout(() => window.location.href = "doctor-dashboard.html", 500);
+      } else {
+        window.app.showToast("Incorrect password. Please verify and try again.", true);
+      }
+    });
+  </script>
+</body>
+</html>

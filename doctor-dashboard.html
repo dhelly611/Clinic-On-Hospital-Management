@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physician Dashboard - Clinic On Healthcare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: var(--light);">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="logo-text">Clinic<span>On</span> <small style="font-size: 0.75rem; background: var(--primary-light); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); margin-left: 0.3rem;">Physician Portal</small></div>
+      </a>
+
+      <div class="nav-actions">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div style="text-align: right;">
+            <div id="navDocName" style="font-weight: 700; color: var(--dark); font-size: 0.95rem;">Dr. Specialist</div>
+            <small id="navDocSpec" style="color: var(--accent); font-weight: 600;">Department</small>
+          </div>
+          <button id="docLogoutBtn" class="btn btn-light btn-sm"><i class="fa-solid fa-power-off"></i> Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Container -->
+  <section class="section" style="padding: 2.5rem 0;">
+    <div class="container">
+      
+      <!-- Doctor Profile Bar -->
+      <div style="background: var(--white); border-radius: var(--radius-lg); padding: 1.5rem 2rem; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 1.25rem;">
+          <img id="docProfileImg" src="" alt="Doctor" style="width: 70px; height: 70px; border-radius: var(--radius-full); object-fit: cover; border: 3px solid var(--primary-light);">
+          <div>
+            <h1 id="headerDocName" style="font-size: 1.5rem; font-weight: 800; color: var(--dark); margin: 0;"></h1>
+            <p id="headerDocQual" style="color: var(--gray-600); font-size: 0.88rem; margin: 0.2rem 0;"></p>
+            <div style="font-size: 0.82rem; color: var(--accent); font-weight: 600;">
+              <i class="fa-solid fa-calendar-week"></i> <span id="headerDocDays"></span> &nbsp;•&nbsp;
+              <i class="fa-solid fa-door-open"></i> <span id="headerDocRoom"></span> &nbsp;•&nbsp; 
+              <i class="fa-solid fa-phone"></i> <span id="headerDocPhone"></span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <span class="badge badge-approved" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><i class="fa-solid fa-circle-check"></i> Active Attending Duty</span>
+        </div>
+      </div>
+
+      <!-- Metrics Row for This Doctor -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="metric-data">
+            <h4 id="statTotal">0</h4>
+            <p>Total Consultations</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon orange"><i class="fa-solid fa-clock"></i></div>
+          <div class="metric-data">
+            <h4 id="statPending">0</h4>
+            <p>Awaiting Your Review</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon green"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="metric-data">
+            <h4 id="statApproved">0</h4>
+            <p>Confirmed Consultations</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon red"><i class="fa-solid fa-circle-xmark"></i></div>
+          <div class="metric-data">
+            <h4 id="statRejected">0</h4>
+            <p>Declined / Rescheduled</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appointments List Card -->
+      <div class="table-card">
+        <div class="table-card-header">
+          <!-- Filter Tabs -->
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-sm btn-primary filter-tab active" data-filter="all">All Patients</button>
+            <button class="btn btn-sm btn-light filter-tab" data-filter="pending"><i class="fa-solid fa-hourglass-half" style="color: #d97706;"></i> Pending Review</button>
+            <button class="btn btn-sm btn-light filter-tab" data-filter="approved"><i class="fa-solid fa-check" style="color: #16a34a;"></i> Approved</button>
+            <button class="btn btn-sm btn-light filter-tab" data-filter="rejected"><i class="fa-solid fa-xmark" style="color: #dc2626;"></i> Rejected</button>
+          </div>
+
+          <!-- Search Input -->
+          <div style="min-width: 240px;">
+            <input type="text" id="tableSearch" class="form-control" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" placeholder="Filter patient name, phone, or ID...">
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Patient Details</th>
+                <th>Date & Time</th>
+                <th>Symptoms / Note</th>
+                <th>Status</th>
+                <th>Clinical Report</th>
+                <th style="text-align: right;">Action Required</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Checkup & Prescription Modal -->
+  <div id="checkupModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size: 1.25rem; color: var(--dark); margin: 0;">
+          <i class="fa-solid fa-notes-medical" style="color: var(--primary);"></i> Add Clinical Findings & Prescription
+        </h3>
+        <button id="closeCheckupBtn" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--gray-600);">&times;</button>
+      </div>
+
+      <form id="checkupForm">
+        <div class="modal-body">
+          <input type="hidden" id="checkupAptId">
+          <div style="margin-bottom: 1.2rem; background: var(--gray-100); padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 0.88rem;">
+            <div><strong>Patient:</strong> <span id="modalPatientName"></span> (<span id="modalPatientPhone"></span>)</div>
+            <div><strong>Appointment Ref:</strong> <span id="modalDisplayAptId" style="color: var(--primary); font-weight: 700;"></span></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Diagnosis, Medication & Advice *</label>
+            <textarea id="checkupText" class="form-control" rows="5" placeholder="e.g. Diagnosed with mild seasonal bronchitis. Prescribed Amoxicillin 500mg (twice daily for 5 days) + warm hydration. Follow up in 7 days if symptoms persist." required></textarea>
+            <small class="form-help">These instructions will be recorded into the patient's medical summary and displayed on their status tracking slip.</small>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelCheckupBtn" class="btn btn-light btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-save"></i> Save & Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Verify Doctor Authentication
+    const session = window.app.getCurrentSession();
+    if (!session || session.role !== "doctor") {
+      window.location.href = "doctor-login.html";
+    }
+
+    const currentDoc = session.user;
+
+    // Populate Doctor Profile UI
+    document.getElementById("navDocName").textContent = currentDoc.name;
+    document.getElementById("navDocSpec").textContent = currentDoc.category;
+    document.getElementById("headerDocName").textContent = currentDoc.name;
+    document.getElementById("headerDocQual").textContent = `${currentDoc.qualification} • ${currentDoc.category}`;
+    document.getElementById("headerDocDays").textContent = currentDoc.workingDaysText ? `Schedule: ${currentDoc.workingDaysText}` : 'Mon - Sat';
+    document.getElementById("headerDocRoom").textContent = currentDoc.room;
+    document.getElementById("headerDocPhone").textContent = currentDoc.phone;
+    document.getElementById("docProfileImg").src = currentDoc.photo;
+
+    let activeStatusFilter = "all";
+    let searchQuery = "";
+
+    function renderStatusBadge(status, hasNotes) {
+      if (status === "approved") {
+        if (hasNotes) {
+          return `<span class="badge badge-completed"><i class="fa-solid fa-circle-check"></i> Completed & Prescribed</span>`;
+        }
+        return `<span class="badge badge-approved"><i class="fa-solid fa-check"></i> Approved</span>`;
+      } else if (status === "rejected") {
+        return `<span class="badge badge-rejected"><i class="fa-solid fa-xmark"></i> Rejected</span>`;
+      } else {
+        return `<span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending Review</span>`;
+      }
+    }
+
+    // Strict Clinical Action Renderer based on state
+    function renderActionButtons(apt) {
+      if (apt.status === "pending") {
+        // Pending: Can only Approve or Reject. Checkup is hidden!
+        return `
+          <button class="btn btn-sm btn-primary action-approve" data-id="${apt.id}" title="Approve this appointment">
+            <i class="fa-solid fa-check"></i> Approve
+          </button>
+          <button class="btn btn-sm btn-light action-reject" data-id="${apt.id}" title="Reject this appointment" style="color: var(--danger); margin-left: 0.35rem;">
+            <i class="fa-solid fa-xmark"></i> Reject
+          </button>
+        `;
+      } else if (apt.status === "approved") {
+        // Approved: Checkup & Prescription is allowed. Reject is hidden!
+        if (apt.checkupNotes) {
+          return `
+            <button class="btn btn-sm btn-outline action-checkup" data-id="${apt.id}" data-name="${apt.patientName}" data-phone="${apt.patientPhone}" data-notes="${encodeURIComponent(apt.checkupNotes)}" title="Edit prescription">
+              <i class="fa-solid fa-pen-to-square"></i> Edit Prescription
+            </button>
+          `;
+        } else {
+          return `
+            <button class="btn btn-sm btn-primary action-checkup" data-id="${apt.id}" data-name="${apt.patientName}" data-phone="${apt.patientPhone}" data-notes="" title="Perform checkup & write prescription">
+              <i class="fa-solid fa-notes-medical"></i> Checkup & Rx
+            </button>
+          `;
+        }
+      } else if (apt.status === "rejected") {
+        // Rejected: Consultation is closed. No actions allowed!
+        return `<span style="color: var(--gray-400); font-size: 0.82rem; font-style: italic;"><i class="fa-solid fa-ban"></i> Consultation Closed</span>`;
+      }
+      return "";
+    }
+
+    function refreshDashboard() {
+      // Fetch ONLY appointments booked for THIS logged-in doctor
+      const allForDoctor = window.app.getAppointmentsForDoctor(currentDoc.id, "all");
+
+      // Update counters
+      document.getElementById("statTotal").textContent = allForDoctor.length;
+      document.getElementById("statPending").textContent = allForDoctor.filter(a => a.status === "pending").length;
+      document.getElementById("statApproved").textContent = allForDoctor.filter(a => a.status === "approved").length;
+      document.getElementById("statRejected").textContent = allForDoctor.filter(a => a.status === "rejected").length;
+
+      // Filtered appointments
+      let filtered = window.app.getAppointmentsForDoctor(currentDoc.id, activeStatusFilter);
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(a => 
+          a.patientName.toLowerCase().includes(q) ||
+          a.patientPhone.includes(q) ||
+          a.id.toLowerCase().includes(q)
+        );
+      }
+
+      const tbody = document.getElementById("appointmentTableBody");
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 3.5rem 1rem; color: var(--gray-600);">
+              <i class="fa-solid fa-calendar-xmark" style="font-size: 2.5rem; color: var(--gray-400); margin-bottom: 0.75rem; display: block;"></i>
+              <strong>No booked consultations found for this filter.</strong>
+              <p style="font-size: 0.88rem; margin-top: 0.25rem;">When patients book an appointment with you, they will appear here in real time.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(apt => `
+        <tr>
+          <td><strong style="color: var(--primary);">${apt.id}</strong></td>
+          <td>
+            <strong>${apt.patientName}</strong><br>
+            <small style="color: var(--gray-600);"><i class="fa-solid fa-phone"></i> ${apt.patientPhone}</small>
+          </td>
+          <td>
+            <strong>${apt.date}</strong><br>
+            <small style="color: var(--dark-light); font-weight: 600;"><i class="fa-solid fa-clock"></i> ${apt.time}</small>
+          </td>
+          <td style="max-width: 220px; font-size: 0.85rem; color: var(--gray-600);">
+            ${apt.symptoms || "Regular consultation"}
+          </td>
+          <td>${renderStatusBadge(apt.status, !!apt.checkupNotes)}</td>
+          <td>
+            ${apt.checkupNotes ? 
+              `<span style="color: #16a34a; font-size: 0.82rem; font-weight: 600;" title="${apt.checkupNotes}"><i class="fa-solid fa-file-circle-check"></i> Recorded</span>` : 
+              `<span style="color: var(--gray-400); font-size: 0.82rem;">None</span>`
+            }
+          </td>
+          <td style="text-align: right; white-space: nowrap;">
+            ${renderActionButtons(apt)}
+          </td>
+        </tr>
+      `).join('');
+
+      attachTableActionListeners();
+    }
+
+    function attachTableActionListeners() {
+      document.querySelectorAll(".action-approve").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          window.app.updateAppointmentStatus(id, "approved");
+          window.app.showToast(`Appointment ${id} confirmed and approved! Now ready for checkup.`);
+          refreshDashboard();
+        });
+      });
+
+      document.querySelectorAll(".action-reject").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          window.app.updateAppointmentStatus(id, "rejected");
+          window.app.showToast(`Appointment ${id} marked as rejected.`);
+          refreshDashboard();
+        });
+      });
+
+      document.querySelectorAll(".action-checkup").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          const name = btn.getAttribute("data-name");
+          const phone = btn.getAttribute("data-phone");
+          const rawNotes = btn.getAttribute("data-notes");
+          const notes = rawNotes ? decodeURIComponent(rawNotes) : "";
+
+          document.getElementById("checkupAptId").value = id;
+          document.getElementById("modalDisplayAptId").textContent = id;
+          document.getElementById("modalPatientName").textContent = name;
+          document.getElementById("modalPatientPhone").textContent = phone;
+          document.getElementById("checkupText").value = notes;
+
+          document.getElementById("checkupModal").classList.add("active");
+        });
+      });
+    }
+
+    // Filter Tabs
+    document.querySelectorAll(".filter-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".filter-tab").forEach(t => {
+          t.classList.remove("btn-primary");
+          t.classList.add("btn-light");
+        });
+        tab.classList.remove("btn-light");
+        tab.classList.add("btn-primary");
+        activeStatusFilter = tab.getAttribute("data-filter");
+        refreshDashboard();
+      });
+    });
+
+    // Search Input
+    document.getElementById("tableSearch").addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      refreshDashboard();
+    });
+
+    // Modal Close
+    const closeModal = () => document.getElementById("checkupModal").classList.remove("active");
+    document.getElementById("closeCheckupBtn").addEventListener("click", closeModal);
+    document.getElementById("cancelCheckupBtn").addEventListener("click", closeModal);
+
+    // Checkup Form Submission
+    document.getElementById("checkupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const aptId = document.getElementById("checkupAptId").value;
+      const notes = document.getElementById("checkupText").value;
+      window.app.addCheckupNotes(aptId, notes);
+      window.app.showToast(`Prescription & checkup recorded for ${aptId}!`);
+      closeModal();
+      refreshDashboard();
+    });
+
+    // Logout
+    document.getElementById("docLogoutBtn").addEventListener("click", () => {
+      window.app.clearSession();
+      window.app.showToast("Signed out of physician portal");
+      setTimeout(() => window.location.href = "doctor-login.html", 400);
+    });
+
+    // Initial load
+    refreshDashboard();
+  </script>
+</body>
+</html>

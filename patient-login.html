@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Portal Sign In - Clinic On Healthcare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);">
+
+  <!-- Nav -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="logo-text">Clinic<span>On</span></div>
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-light btn-sm"><i class="fa-solid fa-house"></i> Home</a>
+        <a id="linkSignup" href="patient-signup.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Card Container -->
+  <section class="section" style="padding: 4rem 0;">
+    <div class="container" style="max-width: 480px;">
+      <div class="form-card" style="box-shadow: var(--shadow-lg);">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="width: 64px; height: 64px; background: var(--primary-light); color: var(--primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 1.25rem auto;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h2 style="font-size: 1.65rem; color: var(--dark); font-weight: 800;">Patient Sign In</h2>
+          <p style="color: var(--gray-600); font-size: 0.92rem; margin-top: 0.25rem;">Sign in to view your consultation history, check appointment status, and access doctor prescriptions.</p>
+        </div>
+
+        <form id="patientLoginForm">
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" id="patEmail" class="form-control" placeholder="your.name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input type="password" id="patPassword" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In To Patient Portal
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--gray-200); font-size: 0.9rem; color: var(--gray-600);">
+          Don't have an account yet? <a id="linkBottomSignup" href="patient-signup.html" style="font-weight: 600; color: var(--primary);">Register New Patient</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Preserve redirect parameters if present
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get("redirect");
+
+    if (redirectUrl) {
+      document.getElementById("linkSignup").href = `patient-signup.html?redirect=${encodeURIComponent(redirectUrl)}`;
+      document.getElementById("linkBottomSignup").href = `patient-signup.html?redirect=${encodeURIComponent(redirectUrl)}`;
+    }
+
+    const form = document.getElementById("patientLoginForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("patEmail").value;
+      const pass = document.getElementById("patPassword").value;
+
+      const pat = window.app.loginPatient(email, pass);
+      if (pat) {
+        window.app.showToast(`Welcome back, ${pat.name}!`);
+        setTimeout(() => {
+          if (redirectUrl) {
+            window.location.href = decodeURIComponent(redirectUrl);
+          } else {
+            window.location.href = "patient-dashboard.html";
+          }
+        }, 400);
+      } else {
+        window.app.showToast("Invalid email or password. Please verify your credentials or register a new account.", true);
+      }
+    });
+  </script>
+</body>
+</html>
