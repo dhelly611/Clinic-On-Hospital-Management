@@ -127,7 +127,7 @@ git commit -m "feat: complete Clinic On hospital management system"
 git branch -M main
 
 # 6. Add your GitHub remote repository (replace with your repository URL)
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
+git remote add origin https://github.com/dhelly611/Clinic-On-Hospital-Management.git
 
 # 7. Push code to GitHub
 git push -u origin main
