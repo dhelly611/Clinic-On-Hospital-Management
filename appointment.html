@@ -309,7 +309,9 @@
           docPreview.style.display = "none";
           return;
         }
-        document.getElementById("previewDocImg").src = doc.photo;
+        const pImg = document.getElementById("previewDocImg");
+        pImg.onerror = function() { if (doc.onlinePhoto) this.src = doc.onlinePhoto; };
+        pImg.src = doc.photo;
         document.getElementById("previewDocName").textContent = doc.name;
         document.getElementById("previewDocSpec").textContent = doc.category;
         document.getElementById("previewDocQual").textContent = doc.qualification;

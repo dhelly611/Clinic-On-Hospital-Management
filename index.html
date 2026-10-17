@@ -292,7 +292,7 @@
     if (container && window.app) {
       container.innerHTML = window.app.data.doctors.map(d => `
         <div class="doctor-card">
-          <div class="doctor-avatar-wrap" style="background-image: url('${d.photo}'); background-size: cover; background-position: center;">
+          <div class="doctor-avatar-wrap" style="background-image: url('${d.photo}'), url('${d.onlinePhoto || d.photo}'); background-size: cover; background-position: center;">
             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);"></div>
             <span class="doctor-badge"><i class="fa-solid fa-stethoscope"></i> ${d.category}</span>
           </div>

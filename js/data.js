@@ -27,7 +27,8 @@ const SEED_DATA = {
       room: "Room 302, Block A",
       qualification: "MD, FACC - Harvard Medical School",
       consultFee: "$120",
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80",
+      photo: "images/dr-sarah.jpg",
+      onlinePhoto: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80",
       workingDays: [1, 2, 3, 4, 5, 6], // Mon - Sat
       workingDaysText: "Mon - Sat",
       offDaysText: "Sunday",
@@ -44,7 +45,8 @@ const SEED_DATA = {
       room: "Room 105, Block B",
       qualification: "MBBS, MD (Pediatrics) - AIIMS",
       consultFee: "$90",
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
+      photo: "images/dr-rajesh.jpg",
+      onlinePhoto: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
       workingDays: [1, 2, 3, 4, 5, 6], // Mon - Sat
       workingDaysText: "Mon - Sat",
       offDaysText: "Sunday",
@@ -61,7 +63,8 @@ const SEED_DATA = {
       room: "Room 410, Block A",
       qualification: "MD, Ph.D. - Johns Hopkins University",
       consultFee: "$150",
-      photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80",
+      photo: "images/dr-chen.jpg",
+      onlinePhoto: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80",
       workingDays: [2, 3, 4, 5], // Tue - Fri
       workingDaysText: "Tue - Fri",
       offDaysText: "Sat, Sun & Mon",
@@ -78,7 +81,8 @@ const SEED_DATA = {
       room: "Room 204, Block C",
       qualification: "MS (Ortho), Fellowship in Joint Replacement",
       consultFee: "$110",
-      photo: "https://images.unsplash.com/photo-1594824813501-48354c463991?auto=format&fit=crop&w=600&q=80",
+      photo: "images/dr-elena.jpg",
+      onlinePhoto: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80",
       workingDays: [1, 2, 3, 4, 5], // Mon - Fri
       workingDaysText: "Mon - Fri",
       offDaysText: "Saturday & Sunday",

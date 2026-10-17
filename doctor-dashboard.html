@@ -180,8 +180,9 @@
     document.getElementById("headerDocQual").textContent = `${currentDoc.qualification} • ${currentDoc.category}`;
     document.getElementById("headerDocDays").textContent = currentDoc.workingDaysText ? `Schedule: ${currentDoc.workingDaysText}` : 'Mon - Sat';
     document.getElementById("headerDocRoom").textContent = currentDoc.room;
-    document.getElementById("headerDocPhone").textContent = currentDoc.phone;
-    document.getElementById("docProfileImg").src = currentDoc.photo;
+    const dImg = document.getElementById("docProfileImg");
+    dImg.onerror = function() { if (currentDoc.onlinePhoto) this.src = currentDoc.onlinePhoto; };
+    dImg.src = currentDoc.photo;
 
     let activeStatusFilter = "all";
     let searchQuery = "";

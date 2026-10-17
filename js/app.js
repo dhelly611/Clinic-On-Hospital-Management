@@ -5,16 +5,28 @@
 
 class ClinicApp {
   constructor() {
-    this.storageKey = "CLINIC_ON_PRODUCTION_DATA_V3";
-    this.sessionKey = "CLINIC_ON_ACTIVE_SESSION_V3";
+    this.storageKey = "CLINIC_ON_PRODUCTION_DATA_V4";
+    this.sessionKey = "CLINIC_ON_ACTIVE_SESSION_V4";
     this.initData();
     this.setupCommonListeners();
   }
 
   // Initialize data store (Always refreshes verified doctor catalog)
   initData() {
-    const raw = localStorage.getItem(this.storageKey);
+    let raw = localStorage.getItem(this.storageKey);
     if (!raw) {
+      // Smooth migration from V3 if available
+      const oldRaw = localStorage.getItem("CLINIC_ON_PRODUCTION_DATA_V3");
+      if (oldRaw) {
+        try {
+          const oldData = JSON.parse(oldRaw);
+          this.data = JSON.parse(JSON.stringify(SEED_DATA));
+          this.data.appointments = oldData.appointments || [];
+          this.data.patients = oldData.patients || [];
+          this.saveData();
+          return;
+        } catch (e) {}
+      }
       this.data = JSON.parse(JSON.stringify(SEED_DATA));
       this.saveData();
     } else {
@@ -39,7 +51,11 @@ class ClinicApp {
 
   // Session Management
   getCurrentSession() {
-    const raw = localStorage.getItem(this.sessionKey);
+    let raw = localStorage.getItem(this.sessionKey);
+    if (!raw) {
+      raw = localStorage.getItem("CLINIC_ON_ACTIVE_SESSION_V3");
+      if (raw) localStorage.setItem(this.sessionKey, raw);
+    }
     return raw ? JSON.parse(raw) : null;
   }
 
